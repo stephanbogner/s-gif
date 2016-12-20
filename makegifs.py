@@ -63,7 +63,9 @@ for dirName, subdirList, fileList in os.walk(rootDir):
         imgs = []
         for x in xrange(0, images.__len__() - 1):
             img = Image.open(images[x])
-            imgs.append(img)
+            imgCopy = img.copy() # Necessary due to Pillow issue https://github.com/python-pillow/Pillow/issues/1237
+            imgs.append(imgCopy)
+            img.close()
         writeGif(exportLocation + gifName, imgs, durationPerFrame)
         counter += 1
     else:
